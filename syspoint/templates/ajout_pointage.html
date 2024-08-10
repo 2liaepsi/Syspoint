@@ -1,0 +1,157 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block content %}            
+              
+              
+ <div class="content-page">
+     <div class="container-fluid add-form-list">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">ajout_pointage</h4>
+                        </div>
+                    </div>
+                    <div classe="carte">
+                        <img src="">
+
+                </div>
+            </div>
+        </div>
+         <!-- Page end  -->
+    
+
+        <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Pointage QR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #preview {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Pointage par Code QR</h1>
+        <video id="preview"></video>
+        <div>
+            <button onclick="startScan()">Démarrer le scan</button>
+            <button onclick="stopScan()">Arrêter le scan</button>
+        </div>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        let scanner = null;
+
+        
+        function startScan() {
+    console.log("Démarrage du scan...");
+    if (scanner) {
+        console.log("Scanner existant, démarrage...");
+        scanner.start();
+        return;
+    }
+
+    console.log("Création d'un nouveau scanner...");
+    scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        console.log("QR code scanné:", content);
+        document.getElementById('result').innerText = 'Code scanné : ' + content;
+        sendPointageData(content);
+    });
+
+    console.log("Recherche des caméras...");
+    Instascan.Camera.getCameras().then(function (cameras) {
+        console.log("Caméras trouvées:", cameras.length);
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+        } else {
+            console.error('Pas de caméras trouvées.');
+            alert('Pas de caméras trouvées.');
+        }
+    }).catch(function (e) {
+        console.error("Erreur lors de l'accès aux caméras:", e);
+        alert('Erreur d\'accès à la caméra : ' + e);
+    });
+}
+        function stopScan() {
+            if (scanner) {
+                scanner.stop();
+            }
+        }
+
+        function sendPointageData(qrContent) {
+    fetch('/pointage/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ etudiantId: qrContent }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Succès:', data);
+        alert('Pointage enregistré avec succès !');
+    })
+    .catch((error) => {
+        console.error('Erreur:', error);
+        alert('Erreur lors de l\'enregistrement du pointage.');
+    });
+}
+function afficherPointagesRecents() {
+    fetch('/pointages/')
+    .then(response => response.json())
+    .then(pointages => {
+        let pointagesHTML = '<h2>Pointages récents :</h2><ul>';
+        pointages.forEach(pointage => {
+            pointagesHTML += `<li>Employé ${pointage.employee_id} pointé à ${new Date(pointage.timestamp).toLocaleString()}</li>`;
+        });
+        pointagesHTML += '</ul>';
+        document.getElementById('pointagesRecents').innerHTML = pointagesHTML;
+    })
+    .catch(error => console.error('Erreur lors de la récupération des pointages:', error));
+}
+    </script>
+</body>
+</html>
+
+
+{%endblock%} -->

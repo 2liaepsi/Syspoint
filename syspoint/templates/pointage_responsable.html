@@ -1,0 +1,69 @@
+
+
+{% block content %}
+<h2>Pointage des étudiants</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="numero_etudiant" placeholder="Numéro étudiant" required>
+    <button type="submit">Pointer</button>
+</form>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h3>Pointages du jour</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Étudiant</th>
+            <th>Numéro</th>
+            <th>Heure de pointage</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pointage in pointages %}
+        <tr>
+            <td>{{ pointage.etudiant.nom }} {{ pointage.etudiant.prenom }}</td>
+            <td>{{ pointage.etudiant.numero_etudiant }}</td>
+            <td>{{ pointage.timestamp|time:"H:i:s" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Aucun pointage enregistré aujourd'hui.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% block extra_js %}
+<script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<video id="preview"></video>
+<form id="pointage-form" method="post">
+    {% csrf_token %}
+    <input type="text" id="numero_etudiant" name="numero_etudiant" placeholder="Numéro étudiant" required>
+    <button type="submit">Pointer</button>
+</form>
+{% endblock %}
+<script type="text/javascript">
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        document.getElementById('numero_etudiant').value = content;
+        document.getElementById('pointage-form').submit();
+    });
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+        } else {
+            console.error('No cameras found.');
+        }
+    }).catch(function (e) {
+        console.error(e);
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+
+
+
+
+<h2>Liste des pointages du jour</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Étudiant</th>
+            <th>Numéro</th>
+            <th>Heure de pointage</th>
+            <th>QR Code</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pointage in pointages %}
+        <tr>
+            <td>{{ pointage.etudiant.nom }} {{ pointage.etudiant.prenom }}</td>
+            <td>{{ pointage.etudiant.numero_etudiant }}</td>
+            <td>{{ pointage.timestamp|time:"H:i:s" }}</td>
+            <td>
+                {% if pointage.qr_code %}
+                    <img src="{{ pointage.qr_code.url }}" alt="QR Code" width="50">
+                {% else %}
+                    Pas de QR code
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Aucun pointage enregistré aujourd'hui.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

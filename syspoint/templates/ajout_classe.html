@@ -1,0 +1,137 @@
+
+{% load static %}
+
+<div class="content-page">
+     <div class="container-fluid add-form-list">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">ajouter classe</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="page-lister_classe.html" data-toggle="validator">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>type classe</label>
+                                        <select name="type" class="selectpicker form-control" data-style="py-0">
+                                            <option>secondaire</option>
+                                            <option>collége</option>
+                                        </select>
+                                    </div> 
+                                </div>  
+                                <div class="col-md-6">                      
+                                    <div class="form-group">
+                                        <label>Nom*</label>
+                                        <input type="text" class="form-control" placeholder="Enter Name" data-errors="Please Enter Name." required="">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>    
+                                <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label>symbole *</label>
+                                        <select name="type" class="selectpicker form-control" data-style="py-0">
+                                            <option>6eme</option>
+                                            <option>5eme</option>
+                                            <option>4eme</option>
+                                            <option>3eme</option>
+                                            <option>2ndS1</option>
+                                            <option>2ndS2</option>
+                                            <option>2ndS3</option>
+                                            <option>2ndS4</option>
+                                            <option>2ndL2</option>
+                                            <option>2ndL'</option>
+                                            <option>1ereS1</option>
+                                            <option>1ereS2</option>
+                                            <option>1ereS3</option>
+                                            <option>1ereS4</option>
+                                            <option>1ereL</option>
+                                            <option>1ereL'</option>
+                                            <option>TS1</option>
+                                            <option>TS2</option>
+                                            <option>TS3</option>
+                                            <option>TS4</option>
+                                            <option>TL2</option>
+                                            <option>TL'</option>
+                                            <option>G</option>
+                                            <option>T</option>
+                                        </select>
+                                    </div>
+                                </div> 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Category *</label>
+                                        <select name="type" class="selectpicker form-control" data-style="py-0">
+                                            <option>sixieme</option>
+                                            <option>cinquieme</option>
+                                            <option>quatrieme</option>
+                                            <option>troisieme</option>
+                                            <option>seconde</option>
+                                            <option>premiere</option>
+                                            <option>terminale</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Image</label>
+                                        <input type="file" class="form-control image-file" name="pic" accept="image/*">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Description / classe Details</label>
+                                        <textarea class="form-control" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <button type="submit" class="btn btn-primary mr-2">ajouter classe</button>
+                            <button type="reset" class="btn btn-danger">reinitialisers</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page end  -->
+    </div>
+      </div>
+    </div>
+    <!-- Wrapper End-->
+    <footer class="iq-footer">
+            <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item"><a href="privacy-policy.html">Privacy Policy</a></li>
+                                <li class="list-inline-item"><a href="terms-of-service.html">Terms of Use</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <span class="mr-1"><script>document.write(new Date().getFullYear())</script>©</span> <a href="#" class="">POS Dash</a>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Backend Bundle JavaScript -->
+    <script src="{%static 'assets/js/backend-bundle.min.js' %}"></script>
+    
+    <!-- Table Treeview JavaScript -->
+    <script src="{%static 'assets/js/table-treeview.js' %}"></script>
+    
+    <!-- Chart Custom JavaScript -->
+    <script src="{%static 'assets/js/customizer.js' %}"></script>
+    
+    <!-- Chart Custom JavaScript -->
+    <script async="" src="{%static 'assets/js/chart-custom.js' %}"></script>
+    
+    <!-- app JavaScript -->
+    <script src="{%static 'assets/js/app.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>liste etudiants pointer</title>
+</head>
+<body>
+    <h1>Étudiants pointés aujourd'hui</h1>
+<ul>
+{% for pointage in etudiants_pointes %}
+    <li>{{ pointage.etudiant__nom }} {{ pointage.etudiant__prenom }}</li>
+{% empty %}
+    <li>Aucun étudiant n'a pointé aujourd'hui.</li>
+{% endfor %}
+</ul>
+</ul>
+</ul>
+</body>
+</html>
